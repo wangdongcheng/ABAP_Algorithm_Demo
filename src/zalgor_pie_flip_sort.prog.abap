@@ -21,6 +21,9 @@ CLASS lcl_flip_pies DEFINITION.
           VALUE(rt_pies) TYPE zalgor_int1_t,
 
       get_max_pie_position
+        IMPORTING
+          iv_from_index   TYPE i DEFAULT 1
+          iv_to_index     TYPE i
         RETURNING
           VALUE(rv_index) TYPE i,
 
@@ -55,8 +58,10 @@ CLASS lcl_flip_pies IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_max_pie_position.
+    CHECK iv_to_index LE lines( pies ).
+
     DATA max_pie TYPE i VALUE 0.
-    LOOP AT pies ASSIGNING FIELD-SYMBOL(<lv_pie>).
+    LOOP AT pies ASSIGNING FIELD-SYMBOL(<lv_pie>) FROM iv_from_index TO iv_to_index.
       IF <lv_pie> GE max_pie.
         max_pie = <lv_pie>.
         rv_index = sy-tabix.

@@ -71,15 +71,24 @@ CLASS lcl_ut IMPLEMENTATION.
     APPEND 92 TO lt_pies.
     APPEND 26 TO lt_pies.
 
-    DATA(lv_max_pos_exp) = 4.
-
     lcl_flip_pies=>set_pies( lt_pies ).
-    DATA(lv_max_pos_act) = lcl_flip_pies=>get_max_pie_position( ).
 
     cl_abap_unit_assert=>assert_equals(
       EXPORTING
-        act =  lv_max_pos_act   " Data object with current value
-        exp =  lv_max_pos_exp   " Data object with expected type
+        act =  lcl_flip_pies=>get_max_pie_position( 5 )
+        exp =  4
+    ).
+
+    cl_abap_unit_assert=>assert_equals(
+      EXPORTING
+        act =  lcl_flip_pies=>get_max_pie_position( 3 )
+        exp =  2
+    ).
+
+        cl_abap_unit_assert=>assert_equals(
+      EXPORTING
+        act =  lcl_flip_pies=>get_max_pie_position( 6 )
+        exp =  0
     ).
 
   ENDMETHOD.

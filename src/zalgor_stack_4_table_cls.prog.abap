@@ -2,6 +2,8 @@
 *& Include          ZALGOR_STACK_4_TABLE_CLS
 *&---------------------------------------------------------------------*
 
+*-- Local Class of CL_WF_STACK_4_DDIC
+
 CLASS lcl_stack DEFINITION.
   PUBLIC SECTION.
     METHODS:

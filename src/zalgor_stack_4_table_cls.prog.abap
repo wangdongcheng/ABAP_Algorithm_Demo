@@ -7,7 +7,7 @@
 CLASS lcl_stack DEFINITION.
   PUBLIC SECTION.
     METHODS:
-      construction
+      constructor
         IMPORTING
           it_tab TYPE ANY TABLE,
 
@@ -25,7 +25,7 @@ CLASS lcl_stack DEFINITION.
 
       is_empty
         RETURNING
-          VALUE(rv_bool) TYPE abap_bool.
+          VALUE(rv_is_empty) TYPE abap_bool.
 
   PRIVATE SECTION.
     DATA:
@@ -36,14 +36,16 @@ CLASS lcl_stack DEFINITION.
 ENDCLASS.
 
 CLASS lcl_stack IMPLEMENTATION.
-  METHOD construction.
+  METHOD constructor .
 *        IMPORTING
 *          it_tab TYPE ANY TABLE
 
-    CHECK it_tab IS NOT INITIAL.
-
     CREATE DATA me->stack LIKE it_tab.
     CREATE DATA me->top LIKE LINE OF it_tab.
+
+    LOOP AT it_tab ASSIGNING FIELD-SYMBOL(<l_tab>).
+      me->push( <l_tab> ).
+    ENDLOOP.
 
     me->counter = lines( it_tab ).
   ENDMETHOD.
@@ -75,18 +77,58 @@ CLASS lcl_stack IMPLEMENTATION.
     INSERT <l_top> INTO <lt_stack> INDEX 1.
     IF sy-subrc NE 0.
       " error message
+    ELSE.
+      me->counter = me->counter + 1.
     ENDIF.
-
-    me->counter = me->counter + 1.
 
   ENDMETHOD.
 
   METHOD pop.
+*        EXPORTING
+*          e_pop_entry TYPE any
+
+    FIELD-SYMBOLS:
+      <lt_stack> TYPE table,
+      <l_top>    TYPE any.
+
+    CLEAR e_pop_entry.
+
+    ASSIGN me->stack->* TO <lt_stack>.
+    IF sy-subrc NE 0.
+      " Error message
+      RETURN.
+    ENDIF.
+
+    ASSIGN me->top->* TO <l_top>.
+    IF sy-subrc NE 0.
+      " Error message
+      RETURN.
+    ENDIF.
+
+    TRY .
+        <l_top> = <lt_stack>[ 1 ].
+      CATCH cx_sy_itab_line_not_found.
+        RETURN.
+    ENDTRY.
+
+    DELETE TABLE <lt_stack> FROM <l_top>.
+    IF sy-subrc NE 0.
+      " error message
+    ELSE.
+      e_pop_entry = <l_top>.
+      me->counter = me->counter - 1.
+    ENDIF.
   ENDMETHOD.
 
   METHOD get_counter.
+    rv_counter = me->counter.
   ENDMETHOD.
 
   METHOD is_empty.
+    IF me->counter EQ 0.
+      rv_is_empty = abap_true.
+    ELSE.
+      rv_is_empty = abap_false.
+    ENDIF.
   ENDMETHOD.
 ENDCLASS.

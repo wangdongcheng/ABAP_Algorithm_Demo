@@ -38,7 +38,7 @@ CLASS lcl_ut IMPLEMENTATION.
     DATA(lo_stack) = NEW lcl_stack( lt_i ).
 
     lo_stack->push( 11 ).
-    lo_stack->push( 2 ).
+    lo_stack->push( 28 ).
     lo_stack->push( 23 ).
     lo_stack->push( 91 ).
 

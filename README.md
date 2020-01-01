@@ -15,3 +15,8 @@ ABAP Implementation of Interesting Algorithm Tasks for Interviews
 ![](imgs/2019-12-30-22-14-02.png)
 
 [Code](./src/zalgor_stack_4_table_cls.prog.abap)
+
+## Quickly Find Out The Malfunctioned Machine
+> Says we have lots of machines to backup important data on them, each data file is identified by the unique ID and ONE ID must be copied to TWO machines. Now if we have a detailed list of the proceeded File ID and the successfully copied machines, how can we find out if there's any malfunctioned machine that failed to be copied, in the most quickly way with least time and space consumption.
+
+![](imgs/2020-01-01-12-56-28.png)

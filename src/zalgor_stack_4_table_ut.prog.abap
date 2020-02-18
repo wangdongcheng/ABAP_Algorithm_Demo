@@ -6,46 +6,47 @@ CLASS lcl_ut DEFINITION FOR TESTING
   RISK LEVEL HARMLESS
   DURATION SHORT.
 
-  PUBLIC SECTION.
+  PRIVATE SECTION.
     METHODS:
+      setup,
       ut_01 FOR TESTING,
       ut_02 FOR TESTING,
       ut_03 FOR TESTING.
 
-  PRIVATE SECTION.
     DATA:
-          lt_i TYPE STANDARD TABLE OF i.
+      mt_i     TYPE STANDARD TABLE OF i,
+      mo_stack TYPE REF TO lcl_stack.
 
 ENDCLASS.
 
 
 CLASS lcl_ut IMPLEMENTATION.
-  METHOD ut_01.
-*    lt_i = VALUE #( ( 8 ) ( 4 ) ).
-    DATA(lo_stack) = NEW lcl_stack( lt_i ).
+  METHOD setup.
+    mo_stack = NEW lcl_stack( mt_i ).
+  ENDMETHOD.
 
-    lo_stack->push( 9 ).
+  METHOD ut_01.
+    mo_stack->push( 9 ).
 
     cl_abap_unit_assert=>assert_equals(
       EXPORTING
-        act = lo_stack->is_empty( )    " Data object with current value
+        act = mo_stack->is_empty( )    " Data object with current value
         exp = abap_false    " Data object with expected type
     ).
 
   ENDMETHOD.
 
   METHOD ut_02.
-    DATA(lo_stack) = NEW lcl_stack( lt_i ).
 
-    lo_stack->push( 11 ).
-    lo_stack->push( 28 ).
-    lo_stack->push( 23 ).
-    lo_stack->push( 91 ).
+    mo_stack->push( 11 ).
+    mo_stack->push( 28 ).
+    mo_stack->push( 23 ).
+    mo_stack->push( 91 ).
 
-    lo_stack->pop( ).
+    mo_stack->pop( ).
 
     DATA lv_act TYPE i.
-    lo_stack->pop(
+    mo_stack->pop(
       IMPORTING
         e_pop_entry = lv_act
     ).
@@ -68,11 +69,10 @@ CLASS lcl_ut IMPLEMENTATION.
     lt_test = VALUE #( ( aa = |y|
                          bb = |cccc| ) ).
 
-    DATA(lo_stack) = NEW lcl_stack( lt_test ).
+    mo_stack = NEW lcl_stack( lt_test ).
+    mo_stack->push( |12345| ).
 
-    lo_stack->push( |12345| ).
-
-    lo_stack->pop(
+    mo_stack->pop(
       IMPORTING
         e_pop_entry = ls_test
     ).
@@ -84,10 +84,11 @@ CLASS lcl_ut IMPLEMENTATION.
     ).
     cl_abap_unit_assert=>assert_equals(
       EXPORTING
-        act                  =  lo_stack->get_counter( )   " Data object with current value
+        act                  =  mo_stack->get_counter( )   " Data object with current value
         exp                  =  1  " Data object with expected type
     ).
-    lo_stack->pop(
+
+    mo_stack->pop(
       IMPORTING
         e_pop_entry = ls_test
     ).

@@ -7,14 +7,10 @@ CLASS lcl_ut DEFINITION
   DURATION SHORT
   RISK LEVEL HARMLESS.
 
-  PUBLIC SECTION.
-    CLASS-METHODS:
-      prepare_data.
-
-    METHODS:
-      ut_01 FOR TESTING.
-
   PRIVATE SECTION.
+    METHODS:
+      setup,
+      ut_01 FOR TESTING.
     CLASS-DATA:
       obj_machines TYPE REF TO lcl_machines,
       missing_idx  TYPE i.
@@ -22,7 +18,7 @@ CLASS lcl_ut DEFINITION
 ENDCLASS.
 
 CLASS lcl_ut IMPLEMENTATION.
-  METHOD prepare_data.
+  METHOD setup.
     DATA:
       lv_timestp     TYPE timestamp.
 
@@ -52,8 +48,6 @@ CLASS lcl_ut IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD ut_01.
-    lcl_ut=>prepare_data( ).
-
     cl_abap_unit_assert=>assert_equals(
       EXPORTING
         act = lcl_ut=>obj_machines->check_machines( )                       " Data object with current value

@@ -65,7 +65,7 @@ CLASS lcl_ut IMPLEMENTATION.
 
   METHOD get_max_pos_ut.
     DATA(lt_pies) = VALUE zalgor_int1_t( ).
-    APPEND 1 TO lt_pies.
+    APPEND  1 TO lt_pies.
     APPEND 33 TO lt_pies.
     APPEND 24 TO lt_pies.
     APPEND 92 TO lt_pies.

@@ -13,7 +13,7 @@
 *& Because nums[0] + nums[1] = 2 + 7 = 9,
 *& return [0, 1].
 *&---------------------------------------------------------------------*
-REPORT zalgor_lc0001.
+REPORT zalgor_ltcd_0001.
 
 TYPES:
   tt_nums TYPE STANDARD TABLE OF i,
@@ -25,9 +25,9 @@ TYPES:
     key TYPE i,
     val TYPE i,
   END OF ts_map,
-  tt_map_st TYPE SORTED TABLE OF ts_map WITH UNIQUE KEY primary_key COMPONENTS key.
+  tt_map_st TYPE SORTED TABLE OF ts_map WITH UNIQUE KEY key.
 
-CLASS   lcl_sol DEFINITION.
+CLASS lcl_sol DEFINITION.
   PUBLIC SECTION.
     METHODS:
       two_sum
@@ -66,7 +66,8 @@ ENDCLASS.
 CLASS lcl_ut IMPLEMENTATION.
   METHOD ut_two_sum.
     DATA lt_nums TYPE tt_nums.
-    lt_nums = VALUE #( ( 2 ) ( 7 ) ( 11 ) ( 15 ) ).
+
+    lt_nums = zcl_ltcd_helper=>string_to_int_array( |2,7,11,15,18| ).
 
     cl_abap_unit_assert=>assert_equals(
       EXPORTING
@@ -75,7 +76,7 @@ CLASS lcl_ut IMPLEMENTATION.
         exp                  = VALUE ts_ret( a = 2 b = 3 )   " Data object with expected type
     ).
 
-    lt_nums = VALUE #( ( 3 ) ( 22 ) ( 6 ) ( 15 ) ( 34 ) ( 56 ) ).
+    lt_nums = zcl_ltcd_helper=>string_to_int_array( |3,22,6,15,34,56,66| ).
 
     cl_abap_unit_assert=>assert_equals(
       EXPORTING

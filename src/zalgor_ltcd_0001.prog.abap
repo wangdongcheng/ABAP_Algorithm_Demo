@@ -65,9 +65,7 @@ ENDCLASS.
 
 CLASS lcl_ut IMPLEMENTATION.
   METHOD ut_two_sum.
-    DATA lt_nums TYPE tt_nums.
-
-    lt_nums = zcl_ltcd_helper=>string_to_int_array( |2,7,11,15,18| ).
+    DATA(lt_nums) = zalgor_cl_ltcd_helper=>string_to_int_array( |2,7,11,15,18| ).
 
     cl_abap_unit_assert=>assert_equals(
       EXPORTING
@@ -76,13 +74,22 @@ CLASS lcl_ut IMPLEMENTATION.
         exp                  = VALUE ts_ret( a = 2 b = 3 )   " Data object with expected type
     ).
 
-    lt_nums = zcl_ltcd_helper=>string_to_int_array( |3,22,6,15,34,56,66| ).
+    lt_nums = zalgor_cl_ltcd_helper=>string_to_int_array( |3,22,6,15,34,56,66| ).
 
     cl_abap_unit_assert=>assert_equals(
       EXPORTING
         act                  = NEW lcl_sol( )->two_sum( it_nums = lt_nums
                                                         iv_target = 40 )  " Data object with current value
         exp                  = VALUE ts_ret( a = 3 b = 5 )   " Data object with expected type
+    ).
+
+    lt_nums = zalgor_cl_ltcd_helper=>string_to_int_array( |1,3,0,6,-1,34,56,66| ).
+
+    cl_abap_unit_assert=>assert_equals(
+      EXPORTING
+        act                  = NEW lcl_sol( )->two_sum( it_nums = lt_nums
+                                                        iv_target = 65 )  " Data object with current value
+        exp                  = VALUE ts_ret( a = 5 b = 8 )   " Data object with expected type
     ).
   ENDMETHOD.
 ENDCLASS.

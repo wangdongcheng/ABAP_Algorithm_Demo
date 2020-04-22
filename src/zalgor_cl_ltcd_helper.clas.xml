@@ -3,7 +3,7 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <VSEOCLASS>
-    <CLSNAME>ZCL_LTCD_HELPER</CLSNAME>
+    <CLSNAME>ZALGOR_CL_LTCD_HELPER</CLSNAME>
     <LANGU>E</LANGU>
     <DESCRIPT>LeetCode Helper Methods</DESCRIPT>
     <STATE>1</STATE>

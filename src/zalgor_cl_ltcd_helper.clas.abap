@@ -1,4 +1,4 @@
-class ZCL_LTCD_HELPER definition
+class ZALGOR_CL_LTCD_HELPER definition
   public
   final
   create public .
@@ -15,16 +15,25 @@ public section.
       !IV_STR type STRING
     returning
       value(RT_NUMS_2D) type ZALGOR_INT4_T_T .
+  class-methods ARRAY_TO_LISTNODE
+    importing
+      !IT_NUMS type ZALGOR_INT4_T
+    returning
+      value(RO_LN) type ref to ZALGOR_CL_LISTNODE .
 protected section.
 private section.
 ENDCLASS.
 
 
 
-CLASS ZCL_LTCD_HELPER IMPLEMENTATION.
+CLASS ZALGOR_CL_LTCD_HELPER IMPLEMENTATION.
 
 
-  METHOD string_to_int_2d_array.
+  method ARRAY_TO_LISTNODE.
+  endmethod.
+
+
+  METHOD STRING_TO_INT_2D_ARRAY.
     CHECK iv_str IS NOT INITIAL.
     SPLIT iv_str AT ';' INTO TABLE DATA(lt_arr_str).
 
@@ -35,7 +44,7 @@ CLASS ZCL_LTCD_HELPER IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD string_to_int_array.
+  METHOD STRING_TO_INT_ARRAY.
     CHECK iv_str IS NOT INITIAL.
     SPLIT iv_str AT ',' INTO TABLE DATA(lt_nums).
     rt_nums = lt_nums.

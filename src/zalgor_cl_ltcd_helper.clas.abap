@@ -9,12 +9,12 @@ public section.
     importing
       !IV_STR type STRING
     returning
-      value(RT_NUMS) type ZALGOR_INT4_T .
+      value(RT_NUMS) type ZALGOR_IF_TOPS=>TT_INT .
   class-methods STRING_TO_INT_2D_ARRAY
     importing
       !IV_STR type STRING
     returning
-      value(RT_NUMS_2D) type ZALGOR_INT4_T_T .
+      value(RT_NUMS_2D) type ZALGOR_IF_TOPS=>TT_INT_2D .
   class-methods ARRAY_TO_LISTNODE
     importing
       !IT_NUMS type ZALGOR_INT4_T

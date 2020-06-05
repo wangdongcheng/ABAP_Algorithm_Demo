@@ -53,9 +53,11 @@ CLASS lcl_ut IMPLEMENTATION.
       lo_ln = lo_ln->mo_next.
     ENDWHILE.
 
-    cl_demo_output=>write( mo_ln->mv_val ).
-    cl_demo_output=>write( mo_ln->mo_next->mv_val ).
-    cl_demo_output=>write( mo_ln->mo_next->mo_next->mv_val ).
-    cl_demo_output=>display( ).
+    DATA(lv_str) = |{ mo_ln->mv_val }|.
+    WHILE mo_ln->mo_next IS BOUND.
+      lv_str = |{ lv_str }->{ mo_ln->mo_next->mv_val }|.
+      mo_ln = mo_ln->mo_next.
+    ENDWHILE.
+    cl_demo_output=>display( lv_str ).
   ENDMETHOD.
 ENDCLASS.

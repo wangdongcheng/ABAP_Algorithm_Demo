@@ -22,7 +22,7 @@ j = 1.
 WHILE i LE 3.
   j = 1.
   WHILE j LE 3.
-    cl_demo_output=>write( lt_2d[ i ][ j ] ).
+    cl_demo_output=>write( lt_2d[  i  ][ j ] ).
     j = j + 1.
   ENDWHILE.
   i = i + 1.

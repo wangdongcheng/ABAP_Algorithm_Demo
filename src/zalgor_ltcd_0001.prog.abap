@@ -69,27 +69,34 @@ CLASS lcl_ut IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_equals(
       EXPORTING
-        act                  = NEW lcl_sol( )->two_sum( it_nums = lt_nums
-                                                        iv_target = 18 )  " Data object with current value
-        exp                  = VALUE ts_ret( a = 2 b = 3 )   " Data object with expected type
+        act = NEW lcl_sol( )->two_sum( it_nums   = lt_nums
+                                       iv_target = 18 )  " Data object with current value
+        exp = VALUE ts_ret( a = 2 b = 3 )   " Data object with expected type
     ).
 
     lt_nums = zalgor_cl_ltcd_helper=>string_to_int_array( |3,22,6,15,34,56,66| ).
 
     cl_abap_unit_assert=>assert_equals(
       EXPORTING
-        act                  = NEW lcl_sol( )->two_sum( it_nums = lt_nums
-                                                        iv_target = 40 )  " Data object with current value
-        exp                  = VALUE ts_ret( a = 3 b = 5 )   " Data object with expected type
+        act = NEW lcl_sol( )->two_sum( it_nums   = lt_nums
+                                       iv_target = 40 )  " Data object with current value
+        exp = VALUE ts_ret( a = 3 b = 5 )   " Data object with expected type
     ).
 
     lt_nums = zalgor_cl_ltcd_helper=>string_to_int_array( |1,3,0,6,-1,34,56,66| ).
 
     cl_abap_unit_assert=>assert_equals(
       EXPORTING
-        act                  = NEW lcl_sol( )->two_sum( it_nums = lt_nums
-                                                        iv_target = 65 )  " Data object with current value
-        exp                  = VALUE ts_ret( a = 5 b = 8 )   " Data object with expected type
+        act = NEW lcl_sol( )->two_sum( it_nums   = lt_nums
+                                       iv_target = 65 )  " Data object with current value
+        exp = VALUE ts_ret( a = 5 b = 8 )   " Data object with expected type
+    ).
+
+    cl_abap_unit_assert=>assert_equals(
+      EXPORTING
+        act = NEW lcl_sol( )->two_sum( it_nums   = VALUE #( ( ) )
+                                       iv_target = 0 )  " Data object with current value
+        exp = VALUE ts_ret( a = 0 b = 0 )   " Data object with expected type
     ).
   ENDMETHOD.
 ENDCLASS.

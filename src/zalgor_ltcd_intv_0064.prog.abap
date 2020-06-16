@@ -21,7 +21,6 @@
 *
 * 1 <= n <= 10000
 
-
 REPORT zalgor_ltcd_intv_0064.
 
 CLASS lcl_add DEFINITION.
@@ -36,6 +35,9 @@ ENDCLASS.
 
 CLASS lcl_add IMPLEMENTATION.
   METHOD get_sum_nums.
+*    rv_ans = SWITCH i( iv_n
+*                       WHEN 0 THEN 0
+*                       ELSE iv_n + me->get_sum_nums( iv_n - 1 ) ).
     TRY.
         DATA(lv_dummy) = 1 / iv_n.
         rv_ans = iv_n + me->get_sum_nums( iv_n - 1 ).
@@ -44,7 +46,6 @@ CLASS lcl_add IMPLEMENTATION.
     ENDTRY.
   ENDMETHOD.
 ENDCLASS.
-
 
 CLASS lcl_ut DEFINITION FOR TESTING
   DURATION SHORT
@@ -56,20 +57,21 @@ ENDCLASS.
 
 CLASS lcl_ut IMPLEMENTATION.
   METHOD ut.
+    DATA(lo_add) = NEW lcl_add( ).
     cl_abap_unit_assert=>assert_equals(
-      act = NEW lcl_add( )->get_sum_nums( 0 )
+      act = lo_add->get_sum_nums( 0 )
       exp = 0
     ).
     cl_abap_unit_assert=>assert_equals(
-      act = NEW lcl_add( )->get_sum_nums( 1 )
+      act = lo_add->get_sum_nums( 1 )
       exp = 1
     ).
     cl_abap_unit_assert=>assert_equals(
-      act = NEW lcl_add( )->get_sum_nums( 9 )
+      act = lo_add->get_sum_nums( 9 )
       exp = 45
     ).
     cl_abap_unit_assert=>assert_equals(
-      act = NEW lcl_add( )->get_sum_nums( 3 )
+      act = lo_add->get_sum_nums( 3 )
       exp = 6
     ).
   ENDMETHOD.
